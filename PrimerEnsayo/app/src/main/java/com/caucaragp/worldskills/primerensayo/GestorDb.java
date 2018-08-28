@@ -33,7 +33,7 @@ public class GestorDb extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM HOLA;",null);
         if (cursor.moveToFirst()){
             do {
-                String hola = cursor.getColumnName(0);
+                String hola = cursor.getString(0);
                 results.add(hola);
 
             }while (cursor.moveToNext());

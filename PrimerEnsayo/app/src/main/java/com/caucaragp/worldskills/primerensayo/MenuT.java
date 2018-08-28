@@ -49,22 +49,12 @@ public class MenuT extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerPrueba);
-        AdapterT adapterT = new AdapterT(this);
-        recyclerView.setAdapter(adapterT);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false));
-        recyclerView.setHasFixedSize(true);
-        adapterT.setMlistener(new AdapterT.OnClickListener() {
-            @Override
-            public void itemClick(int position, ImageView item) {
-                Animator animator = ViewAnimationUtils.createCircularReveal(item,0,item.getHeight(),0,item.getHeight()*1.5f);
-                animator.setDuration(500);
-                animator.start();
-            }
-        });
+
         GestorDb gestorDb = new GestorDb(this);
         gestorDb.insertHola();
         Toast.makeText(this, ""+gestorDb.selectHola().get(0), Toast.LENGTH_SHORT).show();
+
+
 
     }
 
@@ -111,8 +101,11 @@ public class MenuT extends AppCompatActivity
             Intent intent = new Intent(MenuT.this,MapsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor ,new AFragment()).commit();
 
         } else if (id == R.id.nav_slideshow) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedor ,new BFragment()).commit();
 
         } else if (id == R.id.nav_manage) {
 
