@@ -14,16 +14,23 @@ import java.util.List;
 public class AdapterT extends RecyclerView.Adapter<AdapterT.Holder> {
     int repetir;
     Context context;
-
+    private OnClickListener mlistener;
+    public interface OnClickListener{
+        void itemClick(int position, ImageView item);
+    }
     public AdapterT(Context context) {
         this.context = context;
+    }
+
+    public void setMlistener(OnClickListener mlistener) {
+        this.mlistener = mlistener;
     }
 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_prueba,parent, false);
-        Holder holder = new Holder(view);
+        Holder holder = new Holder(view,mlistener);
         return holder;
     }
 
@@ -40,8 +47,19 @@ public class AdapterT extends RecyclerView.Adapter<AdapterT.Holder> {
     public class Holder extends RecyclerView.ViewHolder {
         ImageView imgI = itemView.findViewById(R.id.imageView2);
 
-        public Holder(View itemView) {
+        public Holder(View itemView, final OnClickListener mlistener) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mlistener!=null){
+                        int position = getLayoutPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            mlistener.itemClick(position,imgI);
+                        }
+                    }
+                }
+            });
         }
         public void connectData(){
             int random = (int) (Math.random() * 3)+1;

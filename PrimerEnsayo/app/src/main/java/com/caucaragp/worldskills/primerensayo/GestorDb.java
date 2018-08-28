@@ -30,7 +30,7 @@ public class GestorDb extends SQLiteOpenHelper {
     public List<String> selectHola(){
         List<String> results = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT() FROM HOLA;",null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM HOLA;",null);
         if (cursor.moveToFirst()){
             do {
                 String hola = cursor.getColumnName(0);

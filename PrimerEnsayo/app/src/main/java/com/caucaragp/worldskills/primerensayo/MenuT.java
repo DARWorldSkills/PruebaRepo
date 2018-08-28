@@ -1,5 +1,6 @@
 package com.caucaragp.worldskills.primerensayo;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewAnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MenuT extends AppCompatActivity
@@ -51,7 +54,14 @@ public class MenuT extends AppCompatActivity
         recyclerView.setAdapter(adapterT);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false));
         recyclerView.setHasFixedSize(true);
-
+        adapterT.setMlistener(new AdapterT.OnClickListener() {
+            @Override
+            public void itemClick(int position, ImageView item) {
+                Animator animator = ViewAnimationUtils.createCircularReveal(item,0,item.getHeight(),0,item.getHeight()*1.5f);
+                animator.setDuration(500);
+                animator.start();
+            }
+        });
         GestorDb gestorDb = new GestorDb(this);
         gestorDb.insertHola();
         Toast.makeText(this, ""+gestorDb.selectHola().get(0), Toast.LENGTH_SHORT).show();
